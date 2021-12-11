@@ -10,15 +10,18 @@ import {
 } from "@material-ui/core";
 import Layout from "../components/Layout";
 import NextLink from "next/link";
-import data from "../utils/data";
+import db from "../utils/db";
+import Product from "../models/Product";
 
-export default function Home() {
+export default function Home(props) {
+    const { products } = props;
+
     return (
         <Layout>
             <div>
                 <h1>Products</h1>
                 <Grid container spacing={3}>
-                    {data.products.map((product) => (
+                    {products.map((product) => (
                         <Grid item md={4} key={product.name}>
                             <Card>
                                 <NextLink
@@ -51,4 +54,23 @@ export default function Home() {
             </div>
         </Layout>
     );
+}
+
+// Pre-render the page on each request
+export async function getServerSideProps() {
+    // Connect to Database
+    await db.connect();
+
+    // Get all the products from the Database. lean() converts document object to javascript object
+    const products = await Product.find({}).lean();
+
+    // Disconnect from the Database
+    db.disconnect();
+
+    // Return data
+    return {
+        props: {
+            products: products.map(db.convertDocToObj),
+        },
+    };
 }
