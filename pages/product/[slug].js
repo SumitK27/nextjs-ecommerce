@@ -28,14 +28,22 @@ export default function ProductScreen(props) {
     }
 
     const addToCartHandler = async () => {
+        const existItem = state.cart.cartItems.find(
+            (x) => x._id === product._id
+        );
+        const quantity = existItem ? existItem.quantity + 1 : 1;
+
+        // Check for stock and alert if out of stock
         const { data } = await axios.get(`/api/products/${product._id}`);
-        if (data.countInStock <= 0) {
+        if (data.countInStock < quantity) {
             window.alert("Sorry, Product is out of stock");
             return;
         }
+
+        // Add Item to Cart
         dispatch({
             type: "CART_ADD_ITEM",
-            payload: { ...product, quantity: 1 },
+            payload: { ...product, quantity },
         });
 
         // Redirect user to cart
