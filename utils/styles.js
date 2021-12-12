@@ -15,16 +15,33 @@ const useStyles = makeStyles({
     grow: {
         flexGrow: 1,
     },
+    mainHeading: {
+        fontSize: "1.8rem",
+        fontWeight: 400,
+        margin: "1rem 0",
+        textAlign: "center",
+    },
+    text: {
+        fontSize: "1.2rem",
+        marginTop: "1rem",
+        marginBottom: "1rem",
+    },
     main: {
         minHeight: "80vh",
+        marginBottom: 100,
     },
     section: {
         marginTop: 10,
         marginBottom: 10,
     },
     footer: {
+        backgroundColor: "#203040",
+        color: "#ffffff",
         textAlign: "center",
-        marginTop: 10,
+        padding: 20,
+        position: "fixed",
+        bottom: 0,
+        width: "100%",
     },
 });
 

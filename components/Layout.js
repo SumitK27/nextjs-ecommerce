@@ -93,6 +93,12 @@ export default function Layout({ title, description, children }) {
                             <NextLink href="/login" passHref>
                                 <Link>Login</Link>
                             </NextLink>
+                            <NextLink href="/about" passHref>
+                                <Link>About</Link>
+                            </NextLink>
+                            <NextLink href="/contact" passHref>
+                                <Link>Contact</Link>
+                            </NextLink>
                         </div>
                     </Toolbar>
                 </AppBar>
