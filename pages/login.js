@@ -7,13 +7,27 @@ import {
     Typography,
 } from "@material-ui/core";
 import axios from "axios";
+import Cookies from "js-cookie";
 import NextLink from "next/link";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../components/Layout";
+import { Store } from "../utils/Store";
 import useStyles from "../utils/styles";
 
 export default function Login() {
+    const router = useRouter();
+    const { redirect } = router.query; // "/login?redirect=/shipping" => "/shipping"
+    const { state, dispatch } = useContext(Store);
+    const { userInfo } = state;
+    useEffect(() => {
+        // Redirect to home if already Logged in
+        if (userInfo) {
+            router.push("/");
+        }
+    }, []);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const classes = useStyles();
@@ -24,6 +38,15 @@ export default function Login() {
                 email,
                 password,
             });
+
+            dispatch({ type: "USER_LOGIN", payload: data });
+
+            // Store user in cookie
+            Cookies.set("userInfo", data);
+
+            // Redirect user (shipping or home screen)
+            router.push(redirect || "/");
+
             alert("Successfully Logged in");
         } catch (err) {
             alert(err.response.data ? err.response.data.message : err.message);

@@ -23,6 +23,7 @@ export default function ContactScreen() {
     })(TableCell);
     const handleSubmit = (event) => {
         // get data from the form and send to database
+        console.log(event.target);
     };
     return (
         <Layout>
