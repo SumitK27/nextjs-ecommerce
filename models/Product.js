@@ -46,6 +46,14 @@ const productSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        featuredImage: {
+            type: String,
+        },
+        isFeatured: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
     },
     {
         timestamps: true,

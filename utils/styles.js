@@ -26,6 +26,7 @@ const useStyles = makeStyles({
         marginTop: "1rem",
         marginBottom: "1rem",
     },
+    mt1: { marginTop: "1rem" },
     main: {
         minHeight: "80vh",
         marginBottom: 100,
