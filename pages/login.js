@@ -49,7 +49,7 @@ export default function Login() {
             dispatch({ type: "USER_LOGIN", payload: data });
 
             // Store user in cookie
-            Cookies.set("userInfo", data);
+            Cookies.set("userInfo", JSON.stringify(data));
 
             // Redirect user (shipping or home screen)
             router.push(redirect || "/");
